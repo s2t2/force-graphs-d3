@@ -69,7 +69,7 @@ d3.json("graph.json", function(json) {
     node.append("svg:circle")
         .attr("cx", 0)
         .attr("cy", 0)
-        .attr("r", 25)
+        .attr("r", function(d) { return d.weight; })  // .attr("r", 25)
         .style("fill", "white")
         .attr("stroke", "black");
 
