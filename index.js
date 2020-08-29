@@ -17,6 +17,10 @@ d3.json("graph.json", function(json) {
         .size([w, h])
         .start();
 
+    //
+    // NODES
+    //
+
     var link = svg.selectAll("line.link")
         .data(json.links)
         .enter().append("svg:line")
@@ -25,6 +29,15 @@ d3.json("graph.json", function(json) {
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
+
+
+
+
+
+
+
+
+
 
     var node_drag = d3.behavior.drag()
         .on("dragstart", dragstart)
@@ -49,8 +62,15 @@ d3.json("graph.json", function(json) {
         force.resume();
     }
 
-    // NODES
 
+
+
+
+
+
+    //
+    // NODES
+    //
 
     var node = svg.selectAll("g.node")
         .data(json.nodes)
@@ -58,21 +78,32 @@ d3.json("graph.json", function(json) {
         .attr("class", "node")
         .call(node_drag);
 
-    var nodeImgUrl = "https://img.icons8.com/plasticine/.25x/bot.png"; // raise up to 2x if you need to increase the circle size below
-
     node.append("svg:image")
         .attr("class", "circle")
-        .attr("xlink:href", nodeImgUrl)
+        .attr("xlink:href", "https://img.icons8.com/plasticine/1x/bot.png") // raise up to 2x if you need to increase the circle size below)
         .attr("x", "-8px")
         .attr("y", "-8px")
-        .attr("width", "16px")
-        .attr("height", "16px");
+        .attr("height", function(d) { return (5 * d.weight) + "px"; }) //.attr("height", circleHeight + "px");
+        .attr("width", function(d) { return (5 * d.weight) + "px"; }) //.attr("width", circleWidth + "px")
+
+    //node.append("svg:circle")
+    //    .attr("cx", 25)
+    //    .attr("cy", 25)
+    //    .attr("r", 25)
+    //    .style("fill", "none")
+    //    .style("border", "1px solid black");
 
     node.append("svg:text")
         .attr("class", "node-text")
         .attr("dx", 12)
         .attr("dy", ".35em")
         .text(function(d) { return d.name });
+
+
+
+
+
+
 
     force.on("tick", tick);
 
