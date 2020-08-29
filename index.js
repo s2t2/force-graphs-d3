@@ -1,9 +1,10 @@
 
 var h = 500, w = 960
 
-var vis = d3.select("body").append("svg:svg")
+var svg = d3.select("body").append("svg:svg")
     .attr("width", w)
-    .attr("height", h);
+    .attr("height", h)
+    .style("border", "1px solid black");
 
 d3.json("graph.json", function(json) {
 
@@ -16,7 +17,7 @@ d3.json("graph.json", function(json) {
         .size([w, h])
         .start();
 
-    var link = vis.selectAll("line.link")
+    var link = svg.selectAll("line.link")
         .data(json.links)
         .enter().append("svg:line")
         .attr("class", "link")
@@ -48,14 +49,16 @@ d3.json("graph.json", function(json) {
         force.resume();
     }
 
+    // NODES
 
-    var nodeImgUrl = "https://github.com/favicon.ico"; //"https://img.icons8.com/plasticine/.5x/bot.png";
 
-    var node = vis.selectAll("g.node")
+    var node = svg.selectAll("g.node")
         .data(json.nodes)
     .enter().append("svg:g")
         .attr("class", "node")
         .call(node_drag);
+
+    var nodeImgUrl = "https://img.icons8.com/plasticine/.25x/bot.png"; // raise up to 2x if you need to increase the circle size below
 
     node.append("svg:image")
         .attr("class", "circle")
@@ -66,7 +69,7 @@ d3.json("graph.json", function(json) {
         .attr("height", "16px");
 
     node.append("svg:text")
-        .attr("class", "nodetext")
+        .attr("class", "node-text")
         .attr("dx", 12)
         .attr("dy", ".35em")
         .text(function(d) { return d.name });
@@ -81,6 +84,5 @@ d3.json("graph.json", function(json) {
 
         node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
     };
-
 
 });
