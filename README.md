@@ -5,7 +5,7 @@ Draggable interactive force graphs in d3.js, adapted from: http://bl.ocks.org/no
 ## Installation
 
 ```sh
-git clone _________
+git clone git@github.com:s2t2/force-graphs-d3.git
 
 cd force-graphs-d3
 ```
