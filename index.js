@@ -1,7 +1,7 @@
 
 var h = 500, w = 960
 
-var svg = d3.select("body").append("svg:svg")
+var svg = d3.select("div#dataviz-container").append("svg:svg")
     .attr("width", w)
     .attr("height", h)
     .style("border", "1px solid black");
